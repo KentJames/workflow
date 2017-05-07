@@ -12,7 +12,6 @@ myVim = pkgs.vim_configurable.merge {
   gui = "gtk";
   cfg = {
     python3Support = true;
-    darwinSupport = true;
     multibyteSupport = true;
   };
   flags = {
