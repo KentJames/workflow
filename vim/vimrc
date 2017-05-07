@@ -1,0 +1,71 @@
+syntax on
+set tabstop =8
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+set number
+set showcmd
+set cursorline
+set wildmenu
+
+set laststatus=2
+set statusline+=%{fugitive#statusline()}
+set smartcase
+set incsearch
+set hlsearch
+set noshowmode 
+set nocompatible
+set backspace=2
+nnoremap <leader><space>: nohlsearch<CR>
+
+
+"air-line
+let g:airline_theme='luna'
+let g:airline_powerline_fonts = 1
+let g:Powerline_symbols = 'unicode'
+if !exists('g:airline_symbols')
+        let g:airline_symbols = {}
+    endif
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+let g:airline#extensions#tabline#enabled = 1
+    
+" syntastic
+"
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['pyflakes']
+
+call plug#begin('~/.vim/plugged')
+
+    "Git, file trees and themes:
+    Plug 'https://github.com/tpope/vim-fugitive.git'
+    Plug 'https://github.com/scrooloose/nerdtree.git'
+    Plug 'https://github.com/vim-airline/vim-airline.git'
+    Plug 'https://github.com/altercation/vim-colors-solarized.git'
+    Plug 'https://github.com/vim-airline/vim-airline-themes'
+    Plug 'https://github.com/powerline/fonts.git'
+    Plug 'https://github.com/Valloric/YouCompleteMe.git'
+    "Syntax checking:
+    Plug 'https://github.com/scrooloose/syntastic.git'
+    "Below this are language specific syntax highlighting:
+    Plug 'https://github.com/LnL7/vim-nix.git'
+    Plug 'rust-lang/rust.vim'
+call plug#end()
