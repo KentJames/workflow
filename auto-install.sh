@@ -27,6 +27,9 @@ cp tmux/tmux.conf ~/.tmux.conf
 cp vim/vimrc ~/.vimrc
 cp nix/config.nix ~/.nixpkgs/config.nix
 
+cd "../"
+echo "Cleaning up after myself.."
+rm -rf workflow/
 
 
 echo "Workflow Installed."
