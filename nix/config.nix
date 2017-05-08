@@ -7,7 +7,7 @@ with pkgs.python35Packages;
   packageOverrides = pkgs: with pkgs; {
     myPythonEnv = python35.withPackages(ps: with ps; [numpy astropy ipython scipy matplotlib sphinx pandoc]);
 
-    my_plugins = import ./plugins.nix {inherit (pkgs) vimUtils fetchFromGitHub; };
+    my_plugins = {inherit (pkgs) vimUtils fetchFromGitHub; };
     configurable_nix_path = "${<nixpkgs>}/pkgs/applications/editors/vim/configurable.nix";
     myVim = pkgs.vimUtils.makeCustomizable (callPackage configurable_nix_path{
       inherit(darwin.apple_sdk.frameworks) CoreServices Cocoa Foundation CoreData;
