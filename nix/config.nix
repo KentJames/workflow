@@ -6,18 +6,22 @@ with pkgs.python35Packages;
 
   packageOverrides = pkgs: with pkgs; {
     myPythonEnv = python35.withPackages(ps: with ps; [numpy astropy ipython scipy matplotlib sphinx pandoc]);
+
+    my_plugins = import ./plugins.nix {inherit (pkgs) vimUtils fetchFromGitHub; };
+    configurable_nix_path = "${<nixpkgs>}/pkgs/applications/editors/vim/configurable.nix";
+    myVim = pkgs.vimUtils.makeCustomizable (callPackage configurable_nix_path{
+      inherit(darwin.apple_sdk.frameworks) CoreServices Cocoa Foundation CoreData;
+      inherit(darwin) libobjc cf-private;
+      features = "huge";
+      lua = pkgs.lua5_1;
+      gui = "gtk";
+      python=python3;
+
+      flags = ["python" "X11"];
+
+    });
+
    
-myVim = pkgs.vim_configurable.merge {
-  features = "huge"; # one of  tiny, small, normal, big or huge
-  gui = "gtk";
-  cfg = {
-    python3Support = true;
-    multibyteSupport = true;
-  };
-  flags = {
-    xim.enable = true;
-  };
-};
     cython = buildPythonPackage rec {
     name = "Cython-${version}";
     version = "0.25.2";
