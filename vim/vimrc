@@ -63,6 +63,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'https://github.com/vim-airline/vim-airline-themes'
     Plug 'https://github.com/powerline/fonts.git'
     Plug 'https://github.com/Valloric/YouCompleteMe.git'
+    Plug 'https://github.com/jiangmiao/auto-pairs'
     "Syntax checking:
     Plug 'https://github.com/scrooloose/syntastic.git'
     "Below this are language specific syntax highlighting:
