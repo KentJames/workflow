@@ -1,11 +1,19 @@
 with import <nixpkgs> {};
-with pkgs.python35Packages;
+with pkgs.python36Packages;
+
+
+
+
 { allowBroken = true; 
   allowUnfree = true;
+  ignoreCollisions = true;
   
 
   packageOverrides = pkgs: with pkgs; {
-    myPythonEnv = python35.withPackages(ps: with ps; [numpy astropy ipython scipy matplotlib sphinx pandoc]);
+
+
+    myPythonEnv = python36.withPackages (ps: with ps; [numpy astropy ipython scipy]);
+
 
     my_plugins = {inherit (pkgs) vimUtils fetchFromGitHub; };
     configurable_nix_path = "${<nixpkgs>}/pkgs/applications/editors/vim/configurable.nix";
@@ -15,11 +23,80 @@ with pkgs.python35Packages;
       features = "huge";
       lua = pkgs.lua5_1;
       gui = "gtk";
-      python=python3;
+      python=python36;
 
-      flags = ["python" "X11"];
+      flags = ["python3" "X11"];
 
     });
+
+    EverythingEnv = pkgs.buildEnv {
+
+      name = "LiterallyEverything";
+      ignoreCollisions = true;
+      paths =[
+        myVim
+        myPythonEnv
+        myBuildTools
+        myCompilers
+        #myDebugTools
+        myVersionControl
+        mySystemTools
+        emacs
+        gcc
+
+      ];
+
+    };
+
+    myBuildTools = pkgs.buildEnv {
+
+      name = "BuildTools";
+      paths = [
+        cmake
+        automake
+        autoconf
+        scons
+      ];
+      
+    };
+
+    myCompilers = pkgs.buildEnv {
+     
+      name = "Compilers";
+      paths = [
+        gcc
+        rustc
+        go
+        ocaml
+        nodejs
+      ];
+    };
+
+    myDebugTools = pkgs.buildEnv {
+      name = "DebugTools";
+      paths = [
+        gdb
+      ];
+    };
+
+    myVersionControl = pkgs.buildEnv {
+      name = "VersionControlTools";
+      paths = [
+        git
+        git-lfs
+      ];
+    };
+
+    mySystemTools = pkgs.buildEnv {
+      name = "SystemTools";
+      paths = [
+        bash
+        gnutar
+        htop
+        screen
+        tmux
+      ];
+    };
 
    
     cython = buildPythonPackage rec {
@@ -58,10 +135,12 @@ with pkgs.python35Packages;
       sha256 = "49de3e86482abe24e3cd02c4a30a469ee4b928d5b46ea5f70fa605ff6f9c6d38";      
   };
   doCheck = false;
-  buildInputs = with python35Packages; [ numpy ];
+  buildInputs = with python36Packages; [ numpy ];
 };
 
-  myvalgrind = stdenv.mkDerivation {
+  
+
+  myValgrind = stdenv.mkDerivation {
     name = "valgrind";
     buildInputs = [ gnu.mig ];
     src = pkgs.fetchurl {
