@@ -56,7 +56,6 @@ with pkgs.python36Packages;
         myVersionControl
         mySystemTools
         emacs
-        gcc
 
       ];
 
