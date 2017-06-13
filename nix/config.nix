@@ -3,16 +3,30 @@ with pkgs.python36Packages;
 
 
 
-
 { allowBroken = true; 
   allowUnfree = true;
   ignoreCollisions = true;
-  
-
-  packageOverrides = pkgs: with pkgs; {
+  doCheck = false;  
 
 
-    myPythonEnv = python36.withPackages (ps: with ps; [numpy astropy ipython scipy]);
+
+
+  packageOverrides = pkgs: rec {
+
+
+    python36Packages = pkgs.python36Packages.override (oldAttrs: { overrides = self: super: {
+        simplejson = super.simplejson.overrideAttrs ( z : rec { doCheck=false; doInstallCheck = false; } );
+        pandas = super.pandas.overrideAttrs( z : rec{ doCheck=false; doInstallCheck = false;  }  );   
+        scikitlearn = super.scikitlearn.overrideAttrs( z: rec{ doCheck=false; doInstallCheck = false; } );
+            
+    } ;  }  ) ;
+
+    myPythonEnv = python36.buildEnv.override {
+        extraLibs = with python36Packages; [ astropy cython ipython matplotlib numba numpy pandas scipy scikitimage scikitlearn sympy ];
+          ignoreCollisions = true;
+
+    };
+
 
 
     my_plugins = {inherit (pkgs) vimUtils fetchFromGitHub; };
@@ -38,7 +52,7 @@ with pkgs.python36Packages;
         myPythonEnv
         myBuildTools
         myCompilers
-        #myDebugTools
+        myDebugTools
         myVersionControl
         mySystemTools
         emacs
@@ -90,7 +104,7 @@ with pkgs.python36Packages;
     mySystemTools = pkgs.buildEnv {
       name = "SystemTools";
       paths = [
-        bash
+        bashInteractive
         gnutar
         htop
         screen
@@ -98,7 +112,9 @@ with pkgs.python36Packages;
       ];
     };
 
-   
+
+
+
     cython = buildPythonPackage rec {
     name = "Cython-${version}";
     version = "0.25.2";
@@ -136,7 +152,7 @@ with pkgs.python36Packages;
   };
   doCheck = false;
   buildInputs = with python36Packages; [ numpy ];
-};
+  };
 
   
 
@@ -148,6 +164,8 @@ with pkgs.python36Packages;
       sha256 = "67ca4395b2527247780f36148b084f5743a68ab0c850cb43e4a5b4b012cf76a1";
     };
   };
+
+
 
 
   };
