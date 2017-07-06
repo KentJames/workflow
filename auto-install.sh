@@ -26,6 +26,7 @@ cd "workflow"
 cp tmux/tmux.conf ~/.tmux.conf
 cp vim/vimrc ~/.vimrc
 cp nix/config.nix ~/.nixpkgs/config.nix
+cp emacs/emacs ~/.emacs
 
 cd "../"
 echo "Cleaning up after myself.."
