@@ -1,0 +1,16 @@
+((("company" .
+   [1 0 0 0 0 0 0])
+  ("irony-mode" .
+   [0 0 0 0 0 1 0 0 0 0])
+  ("eval-after-load" .
+   [0 0 0 0 0 1 0 0 0 0 0 0 0 0 0])
+  ("company-c-headers" .
+   [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("package-archive-contents" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0])
+  ("unless" .
+   [0 0 0 0 1 0])
+  ("executable-find" .
+   [0 0 0 0 0 1 0 0 0 0 0 0 0 0 0])
+  ("require" .
+   [1 0 0 1 1 0 0])))
