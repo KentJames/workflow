@@ -1,0 +1,8 @@
+*.elc
+./.emacs.d/tramp/
+./.emacs.d/irony/
+./.emacs.d/eshell
+./.emacs.d/games
+./.emacs.d/network-security.data
+./.emacs.d/url
+./.emacs.d/var

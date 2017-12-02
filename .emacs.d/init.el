@@ -1,4 +1,4 @@
-(require 'package)
+:~(require 'package)
 
 ; List the packages you want
 
@@ -21,11 +21,14 @@
 (setq mac-command-modifier 'control)
 (setq mac-control-modified 'meta)
 
-;Force SCP For Tramp Mode
+;;Tramp Settings
+;; Force SCP For Tramp Mode
 (setq tramp-copy-size-limit nil)
 
 ;Import my system path
+(exec-path-from-shell-initialize)
 (exec-path-from-shell-copy-env "PATH")
+(exec-path-from-shell-copy-env "LD_LIBRARY_PATH")
 
 ;Theme
 (scroll-bar-mode -1)
@@ -37,19 +40,28 @@
 (set-background-color "#FFFFFF")
 (add-to-list 'default-frame-alist '(background-color . "#000000"))
 
-;Fix Latex-Mode
+;Fix Latex-Mode    
 (add-hook 'doc-view-mode-hook 'auto-revert-mode)
 (set-variable 'doc-view-continuous t)
 
 ;Define Org Mode File Path
 
 (require 'org)
+(require 'org-ref)
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setf org-agenda-files '("~/git-working/WriteUps/org"))
 (setq org-log-done t)
 (setq org-startup-indented t)
+(setq org-pretty-entities t)
+(setq org-pretty-entities-include-sub-superscripts t)
 
+					;(setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f"))
+(setq org-latex-pdf-process
+      '("pdflatex -interaction nonstopmode -output-directory %o %f"
+	"bibtex %b"
+	"pdflatex -interaction nonstopmode -output-directory %o %f"
+	"pdflatex -interaction nonstopmode -output-directory %o %f"))
 ; --- Auto Completion
 
 ;(require 'auto-complete)
@@ -66,6 +78,7 @@
 ;; --- Irony Config
 
 (add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.cuh\\'" . c++-mode))
 
 ;; --- Company on everything.
 (global-company-mode 1)
@@ -86,6 +99,12 @@
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 (eval-after-load 'company
   '(add-to-list 'company-backends '(company-irony-c-headers company-irony))) 
+
+
+;; --- Setup CUDA
+
+
+(setq gud-gdb-command-name "cuda-gdb --annotate=3")
 
 
 ; --- Helm Config
@@ -162,10 +181,10 @@
     (autojoin button completion fill irccontrols list match menu move-to-prompt netsplit networks noncommands readonly ring services stamp track)))
  '(org-agenda-files
    (quote
-    ("/Users/jameskent/git-working/WriteUps/org/notes.org" "/Users/jameskent/git-working/WriteUps/org/todo.org")))
+    ("~/git-working/WriteUps/W-Towers/wtowers.org" "/Users/jameskent/git-working/WriteUps/org/notes.org" "/Users/jameskent/git-working/WriteUps/org/todo.org")))
  '(package-selected-packages
    (quote
-    (company-c-headers company-irony-c-headers company-irony typescript-mode irony ac-c-headers google-this auto-complete-c-headers auto-complete-auctex helm list-packages-ext cuda-mode ox-pandoc pandoc pandoc-mode babel company twilight-anti-bright-theme eyebrowse neotree projectile auto-complete magit color-theme-sanityinc-tomorrow ## solarized-theme auctex-lua exec-path-from-shell auctex-latexmk cdlatex elscreen-multi-term elscreen-persist elscreen-separate-buffer-list git gitter gnuplot latex-extra latex-math-preview latex-unicode-math-mode org-random-todo org-readme org-ref))))
+    (keychain-environment markdown-mode markdown-mode+ company-c-headers company-irony-c-headers company-irony typescript-mode irony ac-c-headers google-this auto-complete-c-headers auto-complete-auctex helm list-packages-ext cuda-mode ox-pandoc pandoc pandoc-mode babel company twilight-anti-bright-theme eyebrowse neotree projectile auto-complete magit color-theme-sanityinc-tomorrow ## solarized-theme auctex-lua exec-path-from-shell auctex-latexmk cdlatex elscreen-multi-term elscreen-persist elscreen-separate-buffer-list git gitter gnuplot latex-extra latex-math-preview latex-unicode-math-mode org-random-todo org-readme org-ref))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
