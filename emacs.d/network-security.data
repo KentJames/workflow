@@ -1,0 +1,4 @@
+(
+ (:id "sha1:94d2871de2888c9ffba1fe9192961d71490944a7" :fingerprint "sha1:84:67:97:65:a7:d1:41:48:7e:d3:35:87:de:de:d9:11:29:07:55:b9" :host "doi.org:443" :conditions (:insecure :unknown-ca :invalid))
+ (:id "sha1:49743765900ba91a36329d69bbc21a77f1e13c5a" :fingerprint "sha1:2d:97:96:a5:29:dd:17:bc:ab:be:20:2f:44:8a:6a:a7:94:ca:2f:85" :host "en.wikipedia.org:443" :conditions (:unknown-ca :invalid))
+)
