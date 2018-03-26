@@ -1,31 +1,31 @@
-;; -*- emacs-lisp -*- <17/12/14 16:16:25 /Users/jameskent/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <18/01/14 20:10:01 /Users/jameskent/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; You can delete it, forcing Tramp to reapply the checks.
 
-((["scp" "jamken01" "e104616-lin" nil nil]
-  ("uname" "Linux 4.4.0-83-generic")
+((["ssh" "jck42" "login-gpu.hpc.cam.ac.uk" nil nil]
+  ("uname" "Linux 3.10.0-514.36.5.el7.csd3.x86_64")
   ("locale" "LC_ALL=en_US.utf8")
   ("test" "test")
   ("remote-path"
-   ("/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin"))
+   ("/usr/bin" "/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin"))
   ("remote-shell" "/bin/sh")
   ("file-exists" "test -e")
+  ("stat" nil)
   ("perl-file-spec" t)
   ("perl-cwd-realpath" t)
   ("perl" "\\perl")
-  ("readlink" "\\readlink")
-  ("stat" nil)
   ("id" "/usr/bin/id")
-  ("gid-integer" 21781)
-  ("gid-string" "jamken01")
+  ("gid-string" "jck42")
+  ("~" "/home/jck42")
+  ("gid-integer" 15082)
+  ("readlink" "\\readlink")
   ("git" "\\git")
-  ("env-u-option" t)
-  ("uid-integer" 21781)
   ("tmpdir" "/tmp")
   ("touch-t" t)
   ("touch" "\\touch")
-  ("ls" "/bin/ls --color=never")
-  ("ls-dired" t))
+  ("uid-integer" 15082))
+ (["ssh" "jck42" "maurice.ra.phy.cam.ac.uk" nil nil]
+  nil)
  (["ssh" "jck42" "maurice.ra.phy.private.cam.ac.uk" nil nil]
   ("uname" "Linux 4.4.0-97-generic")
   ("locale" "LC_ALL=C")
@@ -33,6 +33,7 @@
   ("remote-path"
    ("/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin"))
   ("remote-shell" "/bin/sh")
+  ("~" "/home/jck42")
   ("file-exists" "test -e")
   ("stat" nil)
   ("perl-file-spec" t)
@@ -40,30 +41,50 @@
   ("perl" "\\perl")
   ("id" "/usr/bin/id")
   ("gid-string" "sudo")
-  ("readlink" "\\readlink")
-  ("gid-integer" 27)
-  ("git" "\\git")
-  ("env-u-option" t)
-  ("~" "/home/jck42")
-  ("uid-integer" 1001)
   ("tmpdir" "/tmp")
   ("touch-t" t)
-  ("touch" "\\touch"))
- (["ssh" "jck42" "login-gpu.hpc.cam.ac.uk" nil nil]
-  ("uname" "Linux 3.10.0-514.32.3.el7.x86_64")
+  ("touch" "\\touch")
+  ("gid-integer" 27)
+  ("readlink" "\\readlink"))
+ (["sudo" "root" "maurice.ra.phy.private.cam.ac.uk" nil nil]
+  ("uname" "Linux 4.4.0-97-generic")
   ("locale" "LC_ALL=en_US.utf8")
   ("test" "test")
   ("remote-path"
-   ("/usr/bin" "/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin"))
+   ("/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin"))
   ("remote-shell" "/bin/sh")
+  ("~root" "/root")
+  ("file-exists" "test -e")
   ("stat" nil)
   ("perl-file-spec" t)
   ("perl-cwd-realpath" t)
   ("perl" "\\perl")
   ("id" "/usr/bin/id")
-  ("gid-integer" 15082)
+  ("gid-integer" 0)
+  ("gid-string" "root")
   ("readlink" "\\readlink")
-  ("file-exists" "test -e")
-  ("~" "/home/jck42")
-  ("gid-string" "jck42")
-  ("git" "\\git")))
+  ("git" "\\git")
+  ("uid-integer" 0)
+  ("tmpdir" "/tmp")
+  ("touch-t" t)
+  ("touch" "\\touch"))
+ (["scp" nil "ss" nil nil]
+  nil)
+ (["ss" "jck42" "maurice.ra.phy.private.cam.ac.uk" nil nil]
+  nil)
+ (["su" "root" "maurice.ra.phy.private.cam.ac.uk" nil nil]
+  nil)
+ (["scp" nil "ssh" nil nil]
+  nil)
+ (["sudo" "root" "James-Kents-Macbook-Pro.local" nil nil]
+  nil)
+ (["ssh" "root" "maurice.ra.phy.private.cam.ac.uk" nil nil]
+  nil)
+ (["ssh" nil "James-Kents-Macbook-Pro.local" nil nil]
+  nil)
+ (["su" "jck42" "maurice.ra.phy.private.cam.ac.uk" nil nil]
+  nil)
+ (["scp" nil "s" nil nil]
+  nil)
+ (["s" "jck42" "maurice.ra.phy.private.cam.ac.uk" nil nil]
+  nil))

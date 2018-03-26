@@ -1,21 +1,28 @@
 :~(require 'package)
 
-; List the packages you want
 
-; Add Melpa as the default Emacs Package repository
-; only contains a very limited number of packages
+;;-------------------------------------------------------------
+;;; My init.el file. James Kent 2018.
+;;; Initial Package Imports
+;;-------------------------------------------------------------
+
+;; Add Melpa as the default Emacs Package repository
+;; only contains a very limited number of packages
 (add-to-list 'package-archives
                           '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
-; Activate all the packages (in particular autoloads)
+;; Activate all the packages (in particular autoloads)
 (package-initialize)
 
-; Update your local package index
+;; Update your local package index
 (unless package-archive-contents
   (package-refresh-contents))
 
-;Uk Macbook keyboard fix...
-;; Allow hash to be entered  
+
+;;; Various useability modifications for my local computer.
+
+;;Uk Macbook keyboard fix...
+;; Allow hash to be entered
 (global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
 ;;Cmd is Ctrl and Vice Versa
 (setq mac-command-modifier 'control)
@@ -24,7 +31,6 @@
 ;;Tramp Settings
 ;; Force SCP For Tramp Mode
 
-(setq tramp-copy-size-limit nil)
 (require 'tramp)
 ;;(add-to-list 'tramp-connection-properties
 ;;    (list (regexp-quote "/ssh:@maurice.ra.phy.private.cam.ac.uk:")
@@ -41,18 +47,22 @@
 (setq shell-command-switch "-ic")
 
 
-;Import my system path
+;;Import my system path
 (exec-path-from-shell-initialize)
 (exec-path-from-shell-copy-env "PATH")
 (exec-path-from-shell-copy-env "LD_LIBRARY_PATH")
 
-;Theme
+;;Theme
 (scroll-bar-mode -1)
 (load-theme `twilight-anti-bright t)
 (eyebrowse-mode t)
 (tool-bar-mode -1)
 
-;Fix Latex-Mode    
+;;-------------------------------------------------------------
+;;; Documentation and Org-Mode Settings
+;;--------------------------------------------------------------
+
+;;Fix Latex-Mode
 (add-hook 'doc-view-mode-hook 'auto-revert-mode)
 (set-variable 'doc-view-continuous t)
 
@@ -60,38 +70,41 @@
 
 (require 'org)
 (require 'org-ref)
+(require 'org-capture)
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
-(setf org-agenda-files '("~/git-working/WriteUps/org"
-			 "~/git-working/WriteUps/org/org-writeups"))
 (setq org-directory "~/git-working/WriteUps/org")
 (setq org-default-notes-file (concat org-directory "/capture.org"))
+(setq org-archive-location (concat org-directory "/archive.org_archive"))
 (define-key global-map "\C-cc" 'org-capture)
 (setq org-log-done t)
 (setq org-startup-indented t)
-(setq org-pretty-entities t)
-(setq org-pretty-entities-include-sub-superscripts t)
+(setq org-pretty-entities nil)
+(setq org-pretty-entities-include-sub-superscripts nil)
+(setq org-todo-keywords '((sequence "TODO" "INPROGRESS" "|" "DONE" "CANCELLED")
+			   ))
 (setq org-capture-templates
-       '(("t" "todo" entry (file org-default-notes-file)
+       '(("t" "TODO" entry (file org-default-notes-file)
 	  "* TODO %?\n%u\n%a\n" :clock-in t :clock-resume t)
-	 ("m" "Meeting" entry (file org-default-notes-file)
+	 ("m" "Meeting" entry (file+datetree "~/git-working/WriteUps/org/diary.org")
 	  "* MEETING with %? :MEETING:\n%t" :clock-in t :clock-resume t)
 	 ("d" "Diary" entry (file+datetree "~/git-working/Writeups/org/diary.org")
 	  "* %?\n%U\n" :clock-in t :clock-resume t)
 	 ("p" "Paper" entry (file "~/git-working/Writeups/org/papers.org")
-	  "* %?\n:PAPER: %U\nOverview: \n\nUseful Additional References: \n\n")
+	  "* %?\n:PAPER: %U\n** Overview: \n\n** Abbreviations: \n\n** Useful Additional References: \n\n")
 	 ("i" "Idea" entry (file org-default-notes-file)
 	  "* %? :IDEA: \n%t" :clock-in t :clock-resume t)
 	 ("n" "Next Task" entry (file+headline org-default-notes-file "Tasks")
-	  "** NEXT %? \nDEADLINE: %t") ))
+	  "** TODO NEXT %? \nDEADLINE: %t") ))
 
 (setq org-tag-persistent-alist
       '(("MEETING" . ?m)
 	("IDEA" . ?i)
-	("Diary" . ?d)
-	("Next" . ?n)
-	("Advanced" .?a)
-	("Teaching" . ?t)))
+	("DIARY" . ?d)
+	("NEXT" . ?n)
+	("BOOK" . ?b) ;; Use this for marking books in papers.org.
+	("ADVANCED" .?a)
+	("TEACHING" . ?t)))
 
 (setq org-latex-pdf-process
       '("pdflatex -interaction nonstopmode -output-directory %o %f"
@@ -101,39 +114,56 @@
 
 (setq org-ref-default-bibliography "~/git-working/WriteUps/references_all.bib")
 
+;;Looks at top level directory and recursively adds .org files it finds.
+(defvar org-agenda-regx 0 "Regular expression for org files.")
+(setq org-agenda-regx "\\`[^.].*\\.org\\'")
+(defun load-agenda-recursively (dir) "Find All Directories in DIR."
+       
+       (unless (file-directory-p dir) (error "Not a directory %s" dir))
+       (unless (equal (directory-files dir nil org-agenda-regx t) nil)
+	 (add-to-list 'org-agenda-files dir)
+       )
+       (dolist (file (directory-files dir nil nil t))
+	 (unless (member file '("." ".."))
+	   (let ((file (concat dir file "/")))
+	     (when (file-directory-p file)
+	       (load-agenda-recursively file)
+	     )
+	   )
+	 )
+       )
+)
+(load-agenda-recursively (file-truename "~/git-working/WriteUps/"))
+
+
+
+
+;;-------------------------------------------------------------
+;;;    Myriad of Syntax Highlighting/Checking/Completion
+;;-------------------------------------------------------------
 
 ;; --- Magit Config
 
 (global-set-key (kbd "C-c m") 'magit-status)
 
-;; --- Irony Config
+;; -- YCMD Setup
+(require 'ycmd)
+(setq ycmd-server-command
+      (list "python3" "-u" (file-truename "~/.emacs.d/ycmd/ycmd/")))
+(setq ycmd-global-config (file-truename "~/.emacs.d/ycmd/cpp/ycm/.ycm_extra_conf.py"))
+(add-hook 'ycmd-mode-hook 'company-ycmd-setup)
+(add-hook 'ycmd-mode-hook 'flycheck-ycmd-setup)
 
-(add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode))
-(add-to-list 'auto-mode-alist '("\\.cuh\\'" . c++-mode))
+(global-company-mode t)
+(global-ycmd-mode t)
+(add-hook 'after-init-hook #'global-ycmd-mode)
 
-;; --- Company on everything.
-(global-company-mode 1)
-;; --- Language Mode Hooks 
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
-(add-hook 'objc-mode-hook 'irony-mode)
-(add-hook 'cuda-mode-hook 'irony-mode)
 
-(defun my-irony-mode-hook ()
-  (define-key irony-mode-map [remap completion-at-point]
-    'irony-completion-at-point-async)
-  (define-key irony-mode-map [remap complete-symbol]
-    'irony-completion-at-point-async))
-(add-hook 'irony-mode-hook #'my-irony-mode-hook)
-(add-hook 'irony-mode-hook #'irony-cdb-autosetup-compile-options)
+;; -- Enable Flycheck on Everything.
 
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-(eval-after-load 'company
-  '(add-to-list 'company-backends '(company-irony-c-headers company-irony))) 
-
+(global-flycheck-mode t)
 
 ;; --- Setup CUDA
-
 
 (setq gud-gdb-command-name "cuda-gdb --annotate=3")
 
@@ -142,6 +172,7 @@
 
 (require 'helm)
 (require 'helm-config)
+(require 'helm-files)
 
 ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
 ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
@@ -150,20 +181,16 @@
 (global-unset-key (kbd "C-x c"))
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
-
-
+(global-set-key (kbd "C-c g") 'helm-google-suggest) ;; Man vs Google, I'm a millenial, so google it!
 
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB work in terminal
 (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
 
-
-
-
 (when (executable-find "curl")
-  (setq helm-google-suggest-use-curl-p t))
+  (setq helm-net-prefer-curl t))
 
-(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+(setq helm-split-window-inside-p           t ; open helm buffer inside current window, not occupy whole other window
       helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
       helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
       helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
@@ -191,6 +218,15 @@
 (helm-autoresize-mode -1)
 (helm-mode 1)
 
+;; - Jupyter Notebook
+
+(require 'ein-jupyter)
+(setq ein:jupyter-default-server-command "jupyter notebook")
+(setq ein:jupyter-default-notebook-directory (file-truename "~/git-working/"))
+
+
+;;; Package Manage and Emacs Section (Don't Edit)
+
 ; --- Packages
 
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
@@ -210,15 +246,18 @@
  '(erc-modules
    (quote
     (autojoin button completion fill irccontrols list match menu move-to-prompt netsplit networks noncommands readonly ring services stamp track)))
- ;;'(org-agenda-files
- ;;  (quote
- ;;   ("~/git-working/WriteUps/W-Towers/wtowers.org" "/Users/jameskent/git-working/WriteUps/org/notes.org" "/Users/jameskent/git-working/WriteUps/org/todo.org")))
+ '(org-agenda-files
+   (quote
+    ("/Users/jameskent/git-working/WriteUps/W-Towers/wtowers.org" "/Users/jameskent/git-working/WriteUps/PhD-Thesis/thesis.org" "/Users/jameskent/git-working/WriteUps/org/capture.org" "/Users/jameskent/git-working/WriteUps/org/diary.org" "/Users/jameskent/git-working/WriteUps/org/notes.org" "/Users/jameskent/git-working/WriteUps/org/papers.org" "/Users/jameskent/git-working/WriteUps/org/todo.org")))
  '(package-selected-packages
    (quote
-    (auctex xpm keychain-environment markdown-mode markdown-mode+ company-c-headers company-irony-c-headers company-irony typescript-mode irony ac-c-headers google-this auto-complete-c-headers auto-complete-auctex helm list-packages-ext cuda-mode ox-pandoc pandoc pandoc-mode babel company twilight-anti-bright-theme eyebrowse neotree projectile auto-complete magit color-theme-sanityinc-tomorrow ## solarized-theme auctex-lua exec-path-from-shell auctex-latexmk cdlatex elscreen-multi-term elscreen-persist elscreen-separate-buffer-list git gitter gnuplot latex-extra latex-math-preview latex-unicode-math-mode org-random-todo org-readme org-ref))))
+    (ein rust-mode flycheck-ycmd company-ycmd ycmd flycheck auctex xpm keychain-environment markdown-mode markdown-mode+ company-c-headers company-irony-c-headers company-irony typescript-mode irony ac-c-headers google-this auto-complete-c-headers auto-complete-auctex helm list-packages-ext cuda-mode ox-pandoc pandoc pandoc-mode babel company twilight-anti-bright-theme eyebrowse neotree projectile auto-complete magit color-theme-sanityinc-tomorrow ## solarized-theme auctex-lua exec-path-from-shell auctex-latexmk cdlatex elscreen-multi-term elscreen-persist elscreen-separate-buffer-list git gitter gnuplot latex-extra latex-math-preview latex-unicode-math-mode org-random-todo org-readme org-ref))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
+(put 'narrow-to-page 'disabled nil)
