@@ -1,0 +1,73 @@
+dired .
+cd hera.ms/
+du -sk
+du -s
+du -shb
+du -sb
+du -sh --apparent-size
+du -sk --apparent-size
+du -s --apparent-size
+cd ../..
+ls
+cd rds/
+ls
+cd rds-bn204-asterics/
+ls
+cd HERA/
+ls
+cd H1C_IDR2/
+ls
+cd 2458110
+ls
+cd xx
+ls
+cd ..
+ls
+cd ..
+cd ..
+cd H1C_IDR2/
+ls
+cd 2458108
+ls
+cd xx
+ls
+cd zen.2458108.14042.xx.HH.uv/
+ls
+cd ../../xx/
+cd ../..
+cd ..
+ls
+cd datarelease/
+ls
+cd ..
+cd data/
+ls
+cd 2458179/
+ls
+cd xx
+ls
+cd zen.2458179.13272.xx.HH.uv/
+ls
+cd flags
+ls
+cd ..
+ls
+cd zen.2458179.12526.xx.HH.uv/
+ls
+cd ../..
+ls
+cd ../..
+ls
+cd ..
+ls
+cd HERA
+ls
+find-files importnow.sh
+cd ~/casascripts
+ls
+cd Z
+cd ~
+ls
+cd casascripts
+cd casascriptsexitcd casascriptsexit
+exit

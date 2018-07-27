@@ -4,17 +4,17 @@
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored-marker"
  (filename . "~/git-working/WriteUps/org/capture.org")
- (front-context-string . "** TODO NEXT W-S")
- (rear-context-string . "2018-01-11 Thu>\n")
- (position . 9839))
+ (front-context-string . "** TODO Is the g")
+ (rear-context-string . "2018-06-12 Tue]\n")
+ (position . 27753))
 ("org-refile-last-stored"
  (filename . "~/git-working/WriteUps/org/capture.org")
- (front-context-string . "** TODO NEXT W-S")
- (rear-context-string . "2018-01-11 Thu>\n")
- (position . 9839))
+ (front-context-string . "** TODO Is the g")
+ (rear-context-string . "2018-06-12 Tue]\n")
+ (position . 27753))
 ("org-capture-last-stored"
  (filename . "~/git-working/WriteUps/org/capture.org")
- (front-context-string . "** TODO NEXT Wor")
- (rear-context-string . "28 Thu>\n* Tasks\n")
- (position . 1953))
+ (front-context-string . "* TODO Is the ga")
+ (rear-context-string . "2018-06-12 Tue]\n")
+ (position . 35531))
 )

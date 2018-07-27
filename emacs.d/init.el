@@ -52,6 +52,9 @@
 (exec-path-from-shell-copy-env "PATH")
 (exec-path-from-shell-copy-env "LD_LIBRARY_PATH")
 
+;;Grep Default Command
+(setq grep-command "grep -Er --color -nH")
+
 ;;Theme
 (scroll-bar-mode -1)
 (load-theme `twilight-anti-bright t)
@@ -65,7 +68,8 @@
 ;;Fix Latex-Mode
 (add-hook 'doc-view-mode-hook 'auto-revert-mode)
 (set-variable 'doc-view-continuous t)
-
+(setq reftex-default-bibliography '("~/git-working/WriteUps/references_all.bib"))
+(setq reftex-plug-into-AUCTeX t)
 ;; Org Mode Settings
 
 (require 'org)
@@ -107,7 +111,8 @@
 	("PROJECT" . ?p)
 	("BOOK" . ?b) ;; Use this for marking books in papers.org.
 	("ADVANCED" .?a)
-	("TEACHING" . ?t)))
+	("TEACHING" . ?t)
+	("WRITEUP" . ?w)))
 
 (setq org-latex-pdf-process
       '("pdflatex -interaction nonstopmode -output-directory %o %f"
@@ -121,7 +126,6 @@
 (defvar org-agenda-regx 0 "Regular expression for org files.")
 (setq org-agenda-regx "\\`[^.].*\\.org\\'")
 (defun load-agenda-recursively (dir) "Find All Directories in DIR."
-       
        (unless (file-directory-p dir) (error "Not a directory %s" dir))
        (unless (equal (directory-files dir nil org-agenda-regx t) nil)
 	 (add-to-list 'org-agenda-files dir)
@@ -137,9 +141,13 @@
        )
 )
 (load-agenda-recursively (file-truename "~/git-working/WriteUps/"))
-(global-set-key (kbd "C-c C-w") 'org-refile)
+(global-set-key (kbd "C-c w") 'org-refile)
 
 
+;;--------------------
+;;; Mailing People
+
+(setq read-mail-command 'gnus)
 
 ;;-------------------------------------------------------------
 ;;;    Myriad of Syntax Highlighting/Checking/Completion
@@ -155,11 +163,11 @@
       (list "python3" "-u" (file-truename "~/.emacs.d/ycmd/ycmd/")))
 (setq ycmd-global-config (file-truename "~/.emacs.d/ycmd/cpp/ycm/.ycm_extra_conf.py"))
 (add-hook 'ycmd-mode-hook 'company-ycmd-setup)
-(add-hook 'ycmd-mode-hook 'flycheck-ycmd-setup)
+;;(add-hook 'ycmd-mode-hook 'flycheck-ycmd-setup)
 
 (global-company-mode t)
-(global-ycmd-mode t)
-(add-hook 'after-init-hook #'global-ycmd-mode)
+;;(global-ycmd-mode t)
+;;(add-hook 'after-init-hook #'global-ycmd-mode)
 
 
 ;; -- Enable Flycheck on Everything.
@@ -185,7 +193,8 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-c g") 'helm-google-suggest) ;; Man vs Google, I'm a millenial, so google it!
-
+;;(global-set-key (kbd "C-x b") 'switch-to-buffer)
+(global-set-key (kbd "C-x B") 'helm-mini)
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB work in terminal
 (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
@@ -251,10 +260,11 @@
     (autojoin button completion fill irccontrols list match menu move-to-prompt netsplit networks noncommands readonly ring services stamp track)))
  '(org-agenda-files
    (quote
-    ("/Users/jameskent/git-working/WriteUps/W-Towers/wtowers.org" "/Users/jameskent/git-working/WriteUps/PhD-Thesis/thesis.org" "/Users/jameskent/git-working/WriteUps/org/capture.org" "/Users/jameskent/git-working/WriteUps/org/diary.org" "/Users/jameskent/git-working/WriteUps/org/notes.org" "/Users/jameskent/git-working/WriteUps/org/papers.org" "/Users/jameskent/git-working/WriteUps/org/todo.org")))
+    ("~/git-working/WriteUps/Closure/closures.org" "~/git-working/WriteUps/ARM_SVE/arm_sve.org" "/Users/jameskent/git-working/WriteUps/W-Towers/wtowers.org" "/Users/jameskent/git-working/WriteUps/PhD-Thesis/thesis.org" "/Users/jameskent/git-working/WriteUps/org/capture.org" "/Users/jameskent/git-working/WriteUps/org/diary.org" "/Users/jameskent/git-working/WriteUps/org/notes.org" "/Users/jameskent/git-working/WriteUps/org/papers.org" "/Users/jameskent/git-working/WriteUps/org/todo.org")))
  '(package-selected-packages
    (quote
-    (ein rust-mode flycheck-ycmd company-ycmd ycmd flycheck auctex xpm keychain-environment markdown-mode markdown-mode+ company-c-headers company-irony-c-headers company-irony typescript-mode irony ac-c-headers google-this auto-complete-c-headers auto-complete-auctex helm list-packages-ext cuda-mode ox-pandoc pandoc pandoc-mode babel company twilight-anti-bright-theme eyebrowse neotree projectile auto-complete magit color-theme-sanityinc-tomorrow ## solarized-theme auctex-lua exec-path-from-shell auctex-latexmk cdlatex elscreen-multi-term elscreen-persist elscreen-separate-buffer-list git gitter gnuplot latex-extra latex-math-preview latex-unicode-math-mode org-random-todo org-readme org-ref))))
+    (haskell-mode ein rust-mode flycheck-ycmd company-ycmd ycmd flycheck auctex xpm keychain-environment markdown-mode markdown-mode+ company-c-headers company-irony-c-headers company-irony typescript-mode irony ac-c-headers google-this auto-complete-c-headers auto-complete-auctex helm list-packages-ext cuda-mode ox-pandoc pandoc pandoc-mode babel company twilight-anti-bright-theme eyebrowse neotree projectile auto-complete magit color-theme-sanityinc-tomorrow ## solarized-theme auctex-lua exec-path-from-shell auctex-latexmk cdlatex elscreen-multi-term elscreen-persist elscreen-separate-buffer-list git gitter gnuplot latex-extra latex-math-preview latex-unicode-math-mode org-random-todo org-readme org-ref)))
+ '(send-mail-function (quote smtpmail-send-it)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
