@@ -40,3 +40,4 @@
             (concat local lapsed))))
 
 (setq gnus-summary-thread-gathering-function 'gnus-gather-threads-by-subject)
+

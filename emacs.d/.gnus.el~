@@ -1,0 +1,17 @@
+;;; Setup Mail Settings:
+
+(setq user-mail-address "jck42@cam.ac.uk"
+      mail-host-address "cam.ac.uk"
+      user-full-name "James Kent"
+      my-imap-server "imap.hermes.cam.ac.uk"
+      my-smtp-server "smtp.hermes.cam.ac.uk")
+
+(setq gnus-select-method
+      '(nnimap "cam"
+	       (nnimap-address "imap.hermes.cam.ac.uk")
+	       (nnimap-server-port "imaps")
+	       (nnimap-stream ssl)))
+
+(setq smtpmail-smtp-server "smtp.hermes.cam.ac.uk"
+      smtpmail-smtp-service 587)
+

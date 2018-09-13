@@ -1,0 +1,6 @@
+;; - Jupyter Notebook
+
+(require 'ein-jupyter)
+;; Fill in your Jupyter directory here
+(setq ein:jupyter-default-server-command "/Library/Frameworks/Python.framework/Versions/3.6/bin/jupyter")
+(setq ein:jupyter-default-notebook-directory (file-truename "~/git-working/"))
