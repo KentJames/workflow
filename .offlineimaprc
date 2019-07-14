@@ -1,0 +1,50 @@
+# Sample minimal config file.  Copy this to ~/.offlineimaprc and edit to
+# get started fast.
+
+[general]
+accounts = Gmail, Cambridge
+pythonfile = /Users/jameskent/.offlineimap.py
+maxsyncaccounts = 2
+
+[Account Gmail]
+localrepository = Gmail-Local
+remoterepository = Gmail
+synclabels = yes
+labelsheader = X-Keywords
+
+[Account Cambridge]
+localrepository = Hermes-Local
+remoterepository = Cambridge
+
+
+[Repository Gmail-Local]
+type = GmailMaildir
+localfolders = /Users/jameskent/mail/gmail
+
+[Repository Hermes-Local]
+type = Maildir
+localfolders = /Users/jameskent/mail/hermes
+
+[Repository Gmail]
+type = Gmail
+remotepasseval = get_password_emacs("imap.gmail.com", "jameschristopherkent", "993")
+remoteuser = jameschristopherkent
+ssl = yes
+maxconnections=1
+sslcacertfile = /usr/local/etc/openssl/cert.pem
+idlefolders = ['Inbox']
+
+[Repository Cambridge]
+type = IMAP
+remotehost = imap.hermes.cam.ac.uk
+remotepasseval = get_password_emacs("imap.hermes.cam.ac.uk", "jck42", "993")
+remoteuser = jck42
+ssl = yes
+ipv6 = True
+maxconnections=10
+sslcacertfile = /usr/local/etc/openssl/cert.pem
+#nametrans = lambda f: re.sub('archive', 'Archive',
+#	    	      re.sub('Drafts', 'drafts', f))
+folderfilter = lambda f: f not in ['Drafts']
+idlefolders = ['INBOX']
+

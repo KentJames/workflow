@@ -36,3 +36,5 @@
   ;(local-set-key (kbd "C-c C-p 2" ) run-python("python -i" t t)))
 
 (add-hook 'python-mode-hook 'python-settings)
+
+(provide 'config-syntax)

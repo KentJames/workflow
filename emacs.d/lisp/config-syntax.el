@@ -37,4 +37,10 @@
 
 (add-hook 'python-mode-hook 'python-settings)
 
+;; - Haskell
+
+(setq haskell-process-type 'stack-ghci)
+
+
 (provide 'config-syntax)
+

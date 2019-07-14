@@ -18,21 +18,34 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-directory "~/git-working/WriteUps/org")
 (setq org-default-notes-file (concat org-directory "/capture.org"))
-(setq org-archive-location (concat org-directory "/archive.org_archive"))
+;;(setq org-archive-location (concat org-directory "/%s_archive::"))
 (define-key global-map "\C-cc" 'org-capture)
 (setq org-log-done t)
 (setq org-startup-indented t)
 (setq org-pretty-entities nil)
 (setq org-pretty-entities-include-sub-superscripts nil)
 (setq org-todo-keywords '((sequence "TODO" "INPROGRESS" "|" "DONE" "CANCELLED")
-			   ))
+			  ))
+
+(setq org-refile-targets '((nil :maxlevel . 2)
+                                (org-agenda-files :maxlevel . 2)))
+(setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
+(setq org-refile-use-outline-path t)                  ; Show full paths for refiling
+
+(defun refile-in-current ()
+"refile current item in current buffer"
+(interactive)
+(let ((org-refile-use-outline-path t)
+    (org-refile-targets '((nil . (:maxlevel . 5)))))
+  (org-refile)))
+
 (setq org-capture-templates
        '(("t" "TODO" entry (file org-default-notes-file)
 	  "* TODO %?\n%u\n%a\n" :clock-in t :clock-resume t)
 	 ("m" "Meeting" entry (file+datetree "~/git-working/WriteUps/org/diary.org")
 	  "* MEETING with %? :MEETING:\n%t" :clock-in t :clock-resume t)
 	 ("d" "Diary" entry (file+datetree "~/git-working/Writeups/org/diary.org")
-	  "* %?\n%U\n" :clock-in t :clock-resume t)
+	  "* %?\n%u\n%a\n" :clock-in t :clock-resume t)
 	 ("p" "Paper" entry (file "~/git-working/Writeups/org/papers.org")
 	  "* %?\n:PAPER: %U\n** Overview: \n\n** Abbreviations: \n\n** Useful Additional References: \n\n")
 	 ("i" "Idea" entry (file org-default-notes-file)
@@ -48,6 +61,7 @@
 	("DIARY" . ?d)
 	("NEXT" . ?n)
 	("PROJECT" . ?p)
+	("PROJECT(PERSONAL)" . ?o)
 	("BOOK" . ?b) ;; Use this for marking books in papers.org.
 	("ADVANCED" .?a)
 	("TEACHING" . ?t)
@@ -82,3 +96,18 @@
 (load-agenda-recursively (file-truename "~/git-working/WriteUps/"))
 (global-set-key (kbd "C-c w") 'org-refile)
 
+
+(setq reftex-default-bibliography '("~/git-working/WriteUps/references_all.bib"))
+
+;; see org-ref for use of these variables
+(setq org-ref-bibliography-notes "~/git-working/WriteUps/org/notes.org"
+      org-ref-default-bibliography '("~/git-working/WriteUps/references_all.bib")
+      org-ref-pdf-directory "~/Google_Drive/PhD/Academic/Reading")
+
+(global-set-key (kbd "C-c o") 'org-ref-helm-insert-cite-link)
+
+(add-hook 'org-mode-hook (lambda ()
+        (local-set-key "\C-ce" 'refile-in-current)))
+
+
+(provide 'config-org)
