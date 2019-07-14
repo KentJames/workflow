@@ -36,7 +36,7 @@
 					       ("/gmail/[Gmail].Trash" . ?t)
 					       ("/gmail/[Gmail].Drafts"   . ?d)
 					       ("/gmail/[Gmail].All Mail" . ?a)
-					       ))))))
+					       ))))
        ,(make-mu4e-context
 	  :name "Cambridge"
 	  :enter-func (lambda () (mu4e-message "Entering Cambridge context"))
@@ -56,7 +56,13 @@
 		   ( mu4e-compose-signature  .
 		     (concat
 		       "James Kent\n"
-		       "Cavendish Laboratory\n"))))))
+		       "Cavendish Laboratory\n"))
+		   (mu4e-maildir-shortcuts . ( ("/hermes/INBOX" . ?i)
+					       ("/hermes/Sent Messages" . ?s)
+					       ("/hermes/Trash" . ?t)
+					       ("/hermes/drafts"   . ?d)
+					       ("/hermes/Archive" . ?a)
+					       ))))))
 
   ;; set `mu4e-context-policy` and `mu4e-compose-policy` to tweak when mu4e should
   ;; guess or ask the correct context, e.g.

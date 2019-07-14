@@ -52,7 +52,6 @@
     (autojoin button completion fill irccontrols list match menu move-to-prompt netsplit networks noncommands readonly ring services stamp track)))
  '(minimap-major-modes (quote (cuda-mode prog-mode)))
  '(minimap-mode nil)
-
  '(org-agenda-files
    (quote
     ("/Users/jameskent/git-working/WriteUps/org/notes.org" "~/git-working/WriteUps/Closure/closures.org" "~/git-working/WriteUps/ARM_SVE/arm_sve.org" "/Users/jameskent/git-working/WriteUps/W-Towers/wtowers.org" "/Users/jameskent/git-working/WriteUps/PhD-Thesis/thesis.org" "/Users/jameskent/git-working/WriteUps/org/capture.org" "/Users/jameskent/git-working/WriteUps/org/diary.org" "/Users/jameskent/git-working/WriteUps/org/papers.org")))
