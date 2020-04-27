@@ -14,6 +14,9 @@
 (require 'org-ref)
 (require 'org-capture)
 (require 'org-notmuch)
+(require 'org-mu4e)
+(require 'org-pdfview)
+
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-directory "~/git-working/WriteUps/org")
@@ -39,6 +42,11 @@
     (org-refile-targets '((nil . (:maxlevel . 5)))))
   (org-refile)))
 
+
+
+;; Org Capture Templates / Tags
+
+
 (setq org-capture-templates
        '(("t" "TODO" entry (file org-default-notes-file)
 	  "* TODO %?\n%u\n%a\n" :clock-in t :clock-resume t)
@@ -48,10 +56,11 @@
 	  "* %?\n%u\n%a\n" :clock-in t :clock-resume t)
 	 ("p" "Paper" entry (file "~/git-working/Writeups/org/papers.org")
 	  "* %?\n:PAPER: %U\n** Overview: \n\n** Abbreviations: \n\n** Useful Additional References: \n\n")
+	 
 	 ("i" "Idea" entry (file org-default-notes-file)
 	  "* %? :IDEA: \n%t" :clock-in t :clock-resume t)
-	 ("n" "Next Task" entry (file+headline org-default-notes-file "Tasks")
-	  "** TODO NEXT %? \nDEADLINE: %t")
+	 ("n" "Note" entry (file org-default-notes-file)
+	  "")
 	 ("r" "TREE" entry (file org-default-notes-file)
 	  "* %? \n\n")))
 
@@ -73,7 +82,13 @@
 	"pdflatex -interaction nonstopmode -output-directory %o %f"
 	"pdflatex -interaction nonstopmode -output-directory %o %f"))
 
-(setq org-ref-default-bibliography "~/git-working/WriteUps/references_all.bib")
+
+;; Open pdf links in pdf-view mode
+
+(add-to-list 'org-file-apps 
+             '("\\.pdf\\'" . (lambda (file link)
+                                     (org-pdfview-open link))))
+
 
 ;;Looks at top level directory and recursively adds .org files it finds.
 (defvar org-agenda-regx 0 "Regular expression for org files.")
@@ -97,6 +112,10 @@
 (global-set-key (kbd "C-c w") 'org-refile)
 
 
+;; My bibliography for references. 
+
+
+(setq org-ref-default-bibliography "~/git-working/WriteUps/references_all.bib")
 (setq reftex-default-bibliography '("~/git-working/WriteUps/references_all.bib"))
 
 ;; see org-ref for use of these variables

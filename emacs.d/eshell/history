@@ -72,3 +72,4 @@ cd casascripts
 cd casascriptsexitcd casascriptsexit
 exit
 offlineimap
+sintr -A SKA-SDP-SL2-GPU -p pascal -N1 --gres=gpu:1 -t 1:0:0 --qos=INTR

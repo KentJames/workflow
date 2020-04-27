@@ -23,11 +23,11 @@
 
 
 ;; --- Setup CUDA
-
+(require 'cuda-mode)
 (setq gud-gdb-command-name "cuda-gdb --annotate=3")
 
 ;; - Python Config
-
+(setq python-shell-interpreter "python3")
 (setq python-indent-offset 4)
 (add-to-list 'tab-stop-list '4)
 (defun python-settings ()

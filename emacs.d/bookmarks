@@ -4,17 +4,17 @@
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored-marker"
  (filename . "~/git-working/WriteUps/org/capture.org")
- (front-context-string . "** TODO Buy some")
- (rear-context-string . "019-05-07 Tue]\n\n")
- (position . 57608))
+ (front-context-string . "** Recovery Code")
+ (rear-context-string . "is\npipelines.\n\n\n")
+ (position . 65224))
 ("org-refile-last-stored"
  (filename . "~/git-working/WriteUps/org/capture.org")
- (front-context-string . "** Costs (£)\n\n| ")
- (rear-context-string . "019-05-07 Tue]\n\n")
- (position . 57818))
+ (front-context-string . "** Git filter br")
+ (rear-context-string . "QUOTE\n* Random \n")
+ (position . 108500))
 ("org-capture-last-stored"
  (filename . "~/git-working/WriteUps/org/capture.org")
- (front-context-string . "* Bifrost instal")
- (rear-context-string . "k/predict.cpp]]\n")
- (position . 80976))
+ (front-context-string)
+ (rear-context-string . "all\n#+END_QUOTE\n")
+ (position . 108490))
 )

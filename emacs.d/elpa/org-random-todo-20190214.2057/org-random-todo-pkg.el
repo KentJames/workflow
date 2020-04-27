@@ -1,0 +1,2 @@
+;;; -*- no-byte-compile: t -*-
+(define-package "org-random-todo" "20190214.2057" "show a random TODO (with alert) every so often" '((emacs "24.3") (alert "1.3")) :commit "4f7677af740e8f3f7cfaf630ae2e594a125af760" :keywords '("org" "todo" "notification" "calendar") :authors '(("Kevin Brubeck Unhammer" . "unhammer@fsfe.org")) :maintainer '("Kevin Brubeck Unhammer" . "unhammer@fsfe.org") :url "https://github.com/unhammer/org-random-todo")

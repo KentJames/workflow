@@ -31,7 +31,11 @@
   (interactive)
   (async-shell-command "brew restart offlineimap"))
 
-(define-key global-map "\C-xt" 'notmuch-tree)
+;;(define-key global-map "\C-xt" 'notmuch-tree)
+
+(custom-set-faces
+ '(notmuch-message-summary-face ((t (:foreground "#3ff"))))
+  '(notmuch-wash-cited-text ((t (:foreground "#f09fff")))))
 
 (provide 'config-notmuch)
 

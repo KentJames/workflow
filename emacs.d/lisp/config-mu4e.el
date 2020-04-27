@@ -1,6 +1,24 @@
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
 (require 'mu4e)
 
+
+(define-key global-map "\C-xt" 'mu4e-headers-search)
+
+(defun offlineimap-quick ()
+  "Start OfflineIMAP."
+  (interactive)
+  (let* ((buffer (offlineimap-make-buffer)))
+    (unless (get-buffer-process buffer)
+      (let ((process (start-process-shell-command
+                      "offlineimap quick"
+                      buffer
+                      offlineimap-command)))
+        (set-process-filter process 'offlineimap-process-filter)
+        (set-process-sentinel process 'offlineimap-process-sentinel))))
+  (add-to-list 'global-mode-string '(:eval (offlineimap-mode-line)) t))
+
+
+
 ;; these are actually the defaults
 (setq
   mu4e-maildir       "~/mail"   ;; top-level Maildir
@@ -11,7 +29,7 @@
 
 (setq mu4e-headers-date-format "%d/%m/%y") ;; FFS america..
 (setq mu4e-headers-include-related nil)
-
+(setq mu4e-attachment-dir (file-truename "~/Downloads"))
 (setq mu4e-contexts
     `( ,(make-mu4e-context
 	  :name "Gmail"

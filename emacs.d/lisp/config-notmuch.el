@@ -1,12 +1,3 @@
-;;; Mailing People
-
-(setq user-mail-address "jck42@cam.ac.uk")
-
-(setq send-mail-function 'sendmail-send-it
-       sendmail-program "/usr/local/bin/msmtp"
-       mail-specify-envelope-from t
-       message-sendmail-envelope-from 'header
-       mail-envelope-from 'header)
 
 ;; Notmuch Configuration
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/")
@@ -31,7 +22,7 @@
   (interactive)
   (async-shell-command "brew restart offlineimap"))
 
-(define-key global-map "\C-xt" 'notmuch-tree)
+;;(define-key global-map "\C-xt" 'notmuch-tree)
 
 (custom-set-faces
  '(notmuch-message-summary-face ((t (:foreground "#3ff"))))
