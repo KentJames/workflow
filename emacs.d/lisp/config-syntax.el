@@ -13,6 +13,11 @@
 ;;(add-hook 'after-init-hook #'global-ycmd-mode)
 
 
+;; -- Common Lisp
+
+(setq inferior-lisp-program "/usr/local/bin/sbcl")
+
+
 ;; -- Enable Flycheck on Everything.
 
 (global-flycheck-mode t)
@@ -20,6 +25,12 @@
 ;; - C Indentation
 
 (setq-default c-basic-offset 4)
+
+;; - C++ Mode
+
+(add-hook
+ 'c++-mode-hook
+ (lambda() (when (file-remote-p default-directory) (company-mode -1))))
 
 
 ;; --- Setup CUDA

@@ -6,14 +6,12 @@
 ;;Fix Latex-Mode
 (add-hook 'doc-view-mode-hook 'auto-revert-mode)
 (set-variable 'doc-view-continuous t)
-(setq reftex-default-bibliography '("~/git-working/WriteUps/references_all.bib"))
-(setq reftex-plug-into-AUCTeX t)
+
 ;; Org Mode Settings
 
 (require 'org)
 (require 'org-ref)
 (require 'org-capture)
-(require 'org-notmuch)
 (require 'org-mu4e)
 (require 'org-pdfview)
 
@@ -42,7 +40,8 @@
     (org-refile-targets '((nil . (:maxlevel . 5)))))
   (org-refile)))
 
-
+;;Add Graphviz to org mode
+(add-to-list 'org-src-lang-modes (quote ("dot" . graphviz-dot)))
 
 ;; Org Capture Templates / Tags
 
@@ -82,6 +81,10 @@
 	"pdflatex -interaction nonstopmode -output-directory %o %f"
 	"pdflatex -interaction nonstopmode -output-directory %o %f"))
 
+;; Setup Org Code Execution Blocks
+
+(setq org-babel-load-languages '(("emacs-lisp" . t) ("python" . t)))
+
 
 ;; Open pdf links in pdf-view mode
 
@@ -113,11 +116,9 @@
 
 
 ;; My bibliography for references. 
-
-
 (setq org-ref-default-bibliography "~/git-working/WriteUps/references_all.bib")
 (setq reftex-default-bibliography '("~/git-working/WriteUps/references_all.bib"))
-
+(setq reftex-plug-into-AUCTeX t)
 ;; see org-ref for use of these variables
 (setq org-ref-bibliography-notes "~/git-working/WriteUps/org/notes.org"
       org-ref-default-bibliography '("~/git-working/WriteUps/references_all.bib")
@@ -126,11 +127,17 @@
 (global-set-key (kbd "C-c o") 'org-ref-helm-insert-cite-link)
 
 (add-hook 'org-mode-hook (lambda ()
-			   (local-set-key "\C-ce" 'refile-in-current)))
+(progn
+			   (local-set-key "\C-ce" 'refile-in-current)
+			   (org-bullets-mode 1))))
 
 '(org-agenda-files
   (quote
    ("/Users/jameskent/git-working/WriteUps/org/notes.org" "~/git-working/WriteUps/Closure/closures.org" "~/git-working/WriteUps/ARM_SVE/arm_sve.org" "/Users/jameskent/git-working/WriteUps/W-Towers/wtowers.org" "/Users/jameskent/git-working/WriteUps/PhD-Thesis/thesis.org" "/Users/jameskent/git-working/WriteUps/org/capture.org" "/Users/jameskent/git-working/WriteUps/org/diary.org" "/Users/jameskent/git-working/WriteUps/org/papers.org")))
+
+
+;; Finally - Eye Candy
+(setq org-bullets-bullet-list '("◉" "○"))
 
 
 (provide 'config-org)
