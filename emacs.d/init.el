@@ -27,6 +27,7 @@
 (setq inhibit-splash-screen t)
 (setq initial-scratch-message nil)
 
+
 (require 'config-mac)
 (require 'config-path)
 (require 'config-tramp)
@@ -34,14 +35,15 @@
 (require 'config-faces)
 (require 'config-frame)
 ;;(require 'config-notmuch)
-(require 'config-msmtp)
+;;(require 'config-msmtp)
 (require 'config-mu4e)
 (require 'config-org)
-;;(require 'config-gnus)
+(require 'config-gnus)
 (require 'config-helm)
 (require 'config-ycmd)
 (require 'config-syntax)
 (require 'config-jupyter)
+(require 'config-utility)
 
 (setq pdf-info-epdfinfo-program "/usr/local/bin/epdfinfo")
 
@@ -72,22 +74,6 @@
  '(package-selected-packages
    '(org-bullets all-the-icons-dired doom-modeline slime smart-mode-line-powerline-theme smart-mode-line-atom-one-dark-theme smart-mode-line org-noter org-pdfview pdf-tools powerline counsel-etags undo-propose poet-theme org-dashboard yaml-mode doom-themes flycheck-haskell interleave minimap flycheck-rust org-plus-contrib offlineimap csv-mode haskell-mode ein rust-mode flycheck-ycmd company-ycmd ycmd flycheck auctex xpm keychain-environment markdown-mode markdown-mode+ company-c-headers company-irony-c-headers company-irony typescript-mode irony ac-c-headers google-this auto-complete-c-headers auto-complete-auctex helm list-packages-ext ox-pandoc pandoc pandoc-mode babel company twilight-anti-bright-theme eyebrowse neotree projectile auto-complete magit color-theme-sanityinc-tomorrow ## solarized-theme auctex-lua exec-path-from-shell auctex-latexmk cdlatex elscreen-multi-term elscreen-persist elscreen-separate-buffer-list git gitter gnuplot latex-extra latex-math-preview latex-unicode-math-mode org-random-todo org-readme org-ref))
  '(tool-bar-mode nil))
-
-
-
-(put 'narrow-to-page 'disabled nil)
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ein:cell-output-area ((t (:background "red"))) t)
- '(message-mml ((t (:foreground "#FF00" :slant italic))))
- '(notmuch-message-summary-face ((t (:foreground "#3ff"))))
- '(notmuch-wash-cited-text ((t (:foreground "#f09fff")))))
-
 (provide 'init)
 
 ;;; init.el ends here
-(put 'downcase-region 'disabled nil)
