@@ -8,17 +8,21 @@
 (set-variable 'doc-view-continuous t)
 
 ;; Org Mode Settings
+(require 'bind-key)
+
 
 (require 'org)
 (require 'org-ref)
 (require 'org-capture)
 (require 'org-roam)
+(require 'org-bullets)
 
+;; Org Mode settings
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-directory "~/git-working/WriteUps/org")
 (setq org-default-notes-file (concat org-directory "/capture.org"))
-;;(setq org-archive-location (concat org-directory "/%s_archive::"))
+
 (define-key global-map "\C-cc" 'org-capture)
 (setq org-log-done t)
 (setq org-startup-indented t)
@@ -42,9 +46,9 @@
 ;;Add Graphviz to org mode
 (add-to-list 'org-src-lang-modes (quote ("dot" . graphviz-dot)))
 
-;; Org Capture Templates / Tags
-
-
+;;-------------------------------------------------------------
+;; Org Capture Configuration
+;;-------------------------------------------------------------
 (setq org-capture-templates
        '(("t" "TODO" entry (file org-default-notes-file)
 	  "* TODO %?\n%u\n%a\n" :clock-in t :clock-resume t)
@@ -109,10 +113,14 @@
        )
 )
 (load-agenda-recursively (file-truename "~/git-working/WriteUps/"))
+(defvar work-notes-dir (shell-quote-argument (file-truename "~/icloud/git-working/Notes/")))
+(if (file-exists-p work-notes-dir)
+    (load-agenda-recursively work-notes-dir))
 (global-set-key (kbd "C-c w") 'org-refile)
 
-
-;; My bibliography for references. 
+;;-------------------------------------------------------------
+;; Org-Ref Configuration
+;;-------------------------------------------------------------
 (setq org-ref-default-bibliography "~/git-working/WriteUps/references_all.bib")
 (setq reftex-default-bibliography '("~/git-working/WriteUps/references_all.bib"))
 (setq reftex-plug-into-AUCTeX t)
@@ -123,26 +131,28 @@
 
 (global-set-key (kbd "C-c o") 'org-ref-helm-insert-cite-link)
 
+;;-------------------------------------------------------------
+;; Org-Roam Configuration
+;;-------------------------------------------------------------
+(setq org-roam-directory (file-truename "~/icloud/git-working/Org-Roam"))
+(setq org-roam-v2-ack t) ; Disable warning
+(org-roam-db-autosync-mode)
+(org-roam-setup)
+
+;; Couple helpful global bindings whilst we are at it
+(bind-key* (kbd "\C-c \C-ri") 'org-roam-node-insert)
+(bind-key* (kbd "\C-c \C-rf") 'org-roam-node-find)
+
+;;-------------------------------------------------------------
+;; Make pretty Org Mode bullets.
+;;-------------------------------------------------------------
 (add-hook 'org-mode-hook (lambda ()
 (progn
 			   (local-set-key "\C-ce" 'refile-in-current)
 			   (org-bullets-mode 1))))
-
-'(org-agenda-files
-  (quote
-   ("/Users/jameskent/git-working/WriteUps/org/notes.org" "~/git-working/WriteUps/Closure/closures.org" "~/git-working/WriteUps/ARM_SVE/arm_sve.org" "/Users/jameskent/git-working/WriteUps/W-Towers/wtowers.org" "/Users/jameskent/git-working/WriteUps/PhD-Thesis/thesis.org" "/Users/jameskent/git-working/WriteUps/org/capture.org" "/Users/jameskent/git-working/WriteUps/org/diary.org" "/Users/jameskent/git-working/WriteUps/org/papers.org")))
-
-
-;; Org-Roam Configuration
-(setq org-roam-directory (file-truename (concat org-directory "/org-roam")))
-(setq org-roam-v2-ack t) ; Disable warning
-(org-roam-db-autosync-mode)
-(define-key global-map (kbd "\C-c \C-ri") 'org-roam-node-insert)
-(define-key global-map (kbd "\C-c \C-rf") 'org-roam-node-find)
-(org-roam-setup)
-
-;; Finally - Eye Candy
 (setq org-bullets-bullet-list '("◉" "○"))
+
+
 
 
 (provide 'config-org)

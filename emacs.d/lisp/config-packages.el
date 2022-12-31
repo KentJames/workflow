@@ -19,6 +19,7 @@
 			     gnuplot
 			     helm
 			     org
+			     org-bullets
 			     org-ref
 			     org-roam
 			     pandoc
