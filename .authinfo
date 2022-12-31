@@ -1,2 +1,0 @@
-machine imap.hermes.cam.ac.uk login jck42 password astrOphys1cs port imaps
-machine smtp.hermes.cam.ac.uk login jck42 password astrOphys1cs port 587
