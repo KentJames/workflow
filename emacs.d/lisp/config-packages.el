@@ -18,6 +18,7 @@
 			     flycheck-rust
 			     gnuplot
 			     helm
+			     magit
 			     org
 			     org-bullets
 			     org-ref
