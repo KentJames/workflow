@@ -1,4 +1,9 @@
 ;; This contains elisp utility functions I find useful.
+;; Also contains one liner configs that I don't know where else to put.
+
+;;Grep Default Command
+(setq grep-command "grep -Er --color -nH")
+
 
 (defun get-size (file-or-dir)
   (let ((stat (file-attributes file-or-dir 'string)))

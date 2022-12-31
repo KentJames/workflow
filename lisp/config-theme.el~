@@ -1,8 +1,0 @@
-;;Theme
-;;(require 'doom-themes)
-(scroll-bar-mode -1)
-;;(load-theme `doom-dracula t)
-(eyebrowse-mode t)
-(tool-bar-mode -1)
-
-(provide 'config-theme)

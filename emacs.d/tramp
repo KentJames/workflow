@@ -1,4 +1,4 @@
-;; -*- emacs-lisp -*- <20/11/11 20:14:45 /Users/jameskent/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <21/07/04 17:43:59 /Users/jameskent/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; Run `M-x tramp-cleanup-all-connections' instead.
 
@@ -20,4 +20,6 @@
   ("perl" "\\perl")
   ("readlink" "\\readlink")
   ("git" "\\git")
-  ("env-u-option" t)))
+  ("env-u-option" t))
+ ((tramp-file-name "ssh" "jkent" nil "wario.caltech.edu" nil nil nil)
+  nil))

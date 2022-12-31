@@ -1,16 +1,0 @@
-;; Emacs-W3 HTTP cookies file
-;; Automatically generated file!!! DO NOT EDIT!!!
-
-(setq url-cookie-storage
- '((".arxiv.org"
-  [url-cookie "browser" "131.111.5.17.1542707897447494" "Thu Nov 12 09:58:35 2048 GMT" "/" ".arxiv.org" nil])
- (".bbc.co.uk"
-  [url-cookie "BBC-UID" "553965c6e49a5ed30b9705da7181b34a2a6113d4a7d4c4369a3067c23d54412c0URL/Emacs" "29 Jun 21 12:58:11 [GMT]" "/" ".bbc.co.uk" nil]))
-)
-(setq url-cookie-secure-storage
- 'nil)
-
-;; Local Variables:
-;; version-control: never
-;; no-byte-compile: t
-;; End:

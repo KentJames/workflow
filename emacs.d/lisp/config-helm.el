@@ -1,7 +1,7 @@
 ;; --- Helm Config
 
 (require 'helm)
-(require 'helm-config)
+;;(require 'helm-config)
 (require 'helm-files)
 
 ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.

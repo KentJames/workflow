@@ -6,12 +6,11 @@
 ;; Enable extra icons
 (require 'all-the-icons)
 ;; Switch to -1 if you want to disable the scroll bar.
-(scroll-bar-mode 1)
+(scroll-bar-mode 0)
 
 ;; Enable Doom Modeline
 (doom-modeline-mode 1)
-(load-theme `doom-acario-dark t)
-(eyebrowse-mode t)
+(load-theme `doom-vibrant t)
 (tool-bar-mode -1)
 
 ;; Enable flashing mode-line on errors

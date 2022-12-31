@@ -5,4 +5,6 @@
 ;;(setq mac-command-modifier 'control)
 (setq mac-control-modified 'meta)
 
+(setq epa-pinentry-mode 'loopback)
+
 (provide 'config-mac)

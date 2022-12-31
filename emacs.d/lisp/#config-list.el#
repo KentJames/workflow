@@ -1,3 +1,0 @@
-;;; --- Common Lisp Setup ----
-
-(setq inferior-lisp-program "sbcl")

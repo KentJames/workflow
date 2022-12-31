@@ -12,8 +12,7 @@
 (require 'org)
 (require 'org-ref)
 (require 'org-capture)
-(require 'org-mu4e)
-(require 'org-pdfview)
+(require 'org-roam)
 
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
@@ -69,7 +68,7 @@
 	("DIARY" . ?d)
 	("NEXT" . ?n)
 	("PROJECT" . ?p)
-	("PROJECT(PERSONAL)" . ?o)
+	("BREW" . ?o)
 	("BOOK" . ?b) ;; Use this for marking books in papers.org.
 	("ADVANCED" .?a)
 	("TEACHING" . ?t)
@@ -82,12 +81,10 @@
 	"pdflatex -interaction nonstopmode -output-directory %o %f"))
 
 ;; Setup Org Code Execution Blocks
-
 (setq org-babel-load-languages '(("emacs-lisp" . t) ("python" . t)))
 
 
 ;; Open pdf links in pdf-view mode
-
 (add-to-list 'org-file-apps 
              '("\\.pdf\\'" . (lambda (file link)
                                      (org-pdfview-open link))))
@@ -135,6 +132,14 @@
   (quote
    ("/Users/jameskent/git-working/WriteUps/org/notes.org" "~/git-working/WriteUps/Closure/closures.org" "~/git-working/WriteUps/ARM_SVE/arm_sve.org" "/Users/jameskent/git-working/WriteUps/W-Towers/wtowers.org" "/Users/jameskent/git-working/WriteUps/PhD-Thesis/thesis.org" "/Users/jameskent/git-working/WriteUps/org/capture.org" "/Users/jameskent/git-working/WriteUps/org/diary.org" "/Users/jameskent/git-working/WriteUps/org/papers.org")))
 
+
+;; Org-Roam Configuration
+(setq org-roam-directory (file-truename (concat org-directory "/org-roam")))
+(setq org-roam-v2-ack t) ; Disable warning
+(org-roam-db-autosync-mode)
+(define-key global-map (kbd "\C-c \C-ri") 'org-roam-node-insert)
+(define-key global-map (kbd "\C-c \C-rf") 'org-roam-node-find)
+(org-roam-setup)
 
 ;; Finally - Eye Candy
 (setq org-bullets-bullet-list '("◉" "○"))
