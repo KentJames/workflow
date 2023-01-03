@@ -26,17 +26,11 @@
 			     pandoc
 			     pandoc-mode
 			     projectile
+			     undo-tree
 			     use-package
 			     ycmd))
 
 (dolist (pkg config-packages-list)
     (when (not (package-installed-p pkg)) (package-install pkg)))
 			     
-
-
-
-
-
-
-
 (provide 'config-packages)
