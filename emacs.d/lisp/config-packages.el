@@ -35,6 +35,7 @@
 			     pandoc
 			     pandoc-mode
 			     projectile
+			     rainbow-delimiters
 			     undo-tree
 			     use-package
 			     ycmd))

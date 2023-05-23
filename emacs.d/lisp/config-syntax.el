@@ -16,6 +16,10 @@
 
 ;; -- Common Lisp
 (setq inferior-lisp-program "/usr/local/bin/sbcl")
+(add-hook 'common-lisp-mode #'rainbow-delimiters-mode)
+
+;; -- Emacs Lisp
+(add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
 
 
 ;; -- Enable Flycheck on Everything.
@@ -62,6 +66,8 @@
 ;; - Haskell
 
 (setq haskell-process-type 'stack-ghci)
+
+
 
 
 (provide 'config-syntax)
